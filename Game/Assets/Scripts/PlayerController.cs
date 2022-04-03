@@ -8,10 +8,13 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
 
     private float directionX = 0f;
-    private float moveSpeed = 7f;
+    private float directionY = 0f;
+    [SerializeField] private float moveSpeed = 5f;
     private float jumpForce = 14f;
 
     private bool isJumping = false;
+
+    [SerializeField] private LayerMask jumpableGround;
 
     // Start is called before the first frame update
     void Start()
@@ -23,22 +26,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        directionX = Input.GetAxisRaw("Horizontal");
-        rigidbody2D.velocity = new Vector2(directionX * moveSpeed, rigidbody2D.velocity.y);
-
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        directionY = Input.GetAxisRaw("Vertical");
+        if (Input.GetButton("Jump"))
         {
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
             isJumping = true;
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
         }
     }
-
-    /*
-    bool isGrounded()
-    {
-        return 
-    }
-    */
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
