@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
-    private CapsuleCollider2D capsuleCollider2D;
+    private BoxCollider2D boxCollider2D;
 
     private float directionX = 0f;
     private float moveSpeed = 7f;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -33,9 +33,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
+    bool isGrounded()
+    {
+        return 
+    }
+    */
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.gameObject.CompareTag("Ground"));
         if (collision.gameObject.tag == "Ground")
         {
             isJumping = false;
