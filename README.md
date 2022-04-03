@@ -10,3 +10,8 @@
 * Avoid falling objects such as hail rocks and lighting 
 * Player has umbrella and can replenishes umbrella after getting damaged by falling objects
   - Can get hit 3 times
+
+
+## If this becomes a typing game:
+* Words
+
