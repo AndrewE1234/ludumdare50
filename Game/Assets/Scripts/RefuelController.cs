@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudController : MonoBehaviour
+public class RefuelController : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
     private Vector2 screen;
@@ -18,9 +18,9 @@ public class CloudController : MonoBehaviour
         screen = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        // Delete cloud when it leaves the camera view
         if (transform.position.x < screen.x * -1.1)
         {
             Destroy(this.gameObject);

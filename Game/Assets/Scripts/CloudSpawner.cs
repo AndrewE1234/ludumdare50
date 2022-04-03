@@ -21,10 +21,10 @@ public class CloudSpawner : MonoBehaviour
     void spawnCloud()
     {
         cloudSpriteRenderer = cloudObject.GetComponent<SpriteRenderer>();
-        cloudSpriteRenderer.sprite = sprites[Random.Range(0, sprites.Length - 1)];
+        cloudSpriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
 
         GameObject obj = Instantiate(cloudObject);
-        obj.transform.position = new Vector2(screen.x * 1.1f, Random.Range(screen.y - 6f, screen.y - 0.5f));
+        obj.transform.position = new Vector2(screen.x * 1.1f, Random.Range(screen.y - 10f, screen.y - 0.5f));
     }
 
     IEnumerator cloudWave()

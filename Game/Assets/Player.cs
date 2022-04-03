@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+
+public class Player : MonoBehaviour
 {
     public float maxFuel = 100;
     public float currentFuel;
@@ -15,20 +16,9 @@ public class PlayerController : MonoBehaviour
     private bool isGameOver = false;
 
 
-    private Rigidbody2D rigidbody2D;
-    private SpriteRenderer spriteRenderer;
-    private float directionY = 0f;
-
-    [SerializeField] private LayerMask jumpableGround;
-    [SerializeField] private float moveSpeed = 5f;
-
-    [SerializeField] private Sprite defaultSprite;
-    [SerializeField] private Sprite upSprite;
-
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
         currentFuel = maxFuel;
         fuelBar.SetMaxFuel(maxFuel);
     }
@@ -36,38 +26,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        directionY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButton("Jump"))
-        {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
-        }
-
-        UpdateFuelStatus();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGameOver = true;
-            print("game over");
-            SceneManager.LoadScene(0);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Fuel")
-        {
-            AddFuel(10f);
-            Destroy(collision.gameObject);
-        }
-    }
-
-    void UpdateFuelStatus()
-    {
         time += Time.deltaTime;
+
+        if (!isGameOver && time >= interpolatingPeriod)
+        {
+            time = 0.0f;
+
+            if (currentFuel < 100)
+            {
+                AddFuel(10);
+            }
+        }
+
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -83,6 +54,7 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
+
     }
 
     void BurnFuel(float burnFuel)
