@@ -5,37 +5,37 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
-    private CapsuleCollider2D capsuleCollider2D;
+    private BoxCollider2D boxCollider2D;
 
     private float directionX = 0f;
-    private float moveSpeed = 7f;
+    private float directionY = 0f;
+    [SerializeField] private float moveSpeed = 5f;
     private float jumpForce = 14f;
 
     private bool isJumping = false;
+
+    [SerializeField] private LayerMask jumpableGround;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
-        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        directionX = Input.GetAxisRaw("Horizontal");
-        rigidbody2D.velocity = new Vector2(directionX * moveSpeed, rigidbody2D.velocity.y);
-
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        directionY = Input.GetAxisRaw("Vertical");
+        if (Input.GetButton("Jump"))
         {
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
             isJumping = true;
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.gameObject.CompareTag("Ground"));
         if (collision.gameObject.tag == "Ground")
         {
             isJumping = false;
