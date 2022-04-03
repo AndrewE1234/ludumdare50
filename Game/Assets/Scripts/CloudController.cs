@@ -5,8 +5,10 @@ using UnityEngine;
 public class CloudController : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
-    [SerializeField] private float moveSpeed = -5f;
     private Vector2 screen;
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private float moveSpeed = -5f;
 
     // Start is called before the first frame update
     void Start()
