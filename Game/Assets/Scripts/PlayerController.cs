@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentFuel = maxFuel;
         fuelBar.SetMaxFuel(maxFuel);
     }
@@ -41,6 +42,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump"))
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
+            spriteRenderer.sprite = upSprite;
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            spriteRenderer.sprite = defaultSprite;
         }
 
         UpdateFuelStatus();
