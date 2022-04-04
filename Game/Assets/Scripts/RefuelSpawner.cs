@@ -20,7 +20,7 @@ public class RefuelSpawner : MonoBehaviour
     void spawnRefuel()
     {
         GameObject obj = Instantiate(fuelObject);
-        obj.transform.position = new Vector2(screen.x * 1.1f, Random.Range(screen.y - 20f, screen.y - 5f));
+        obj.transform.position = new Vector2(screen.x * 1.1f, Random.Range(screen.y - 18f, screen.y - 5f));
     }
 
     IEnumerator fuelWave()
