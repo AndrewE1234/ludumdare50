@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentFuel = maxFuel;
         fuelBar.SetMaxFuel(maxFuel);
     }
@@ -38,9 +39,15 @@ public class PlayerController : MonoBehaviour
     {
         directionY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && currentFuel > 0)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
+            spriteRenderer.sprite = upSprite;
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            spriteRenderer.sprite = defaultSprite;
         }
 
         UpdateFuelStatus();
@@ -51,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isGameOver = true;
+            GameController.gameActive = false;
             print("game over");
             SceneManager.LoadScene(0);
         }
@@ -69,18 +77,11 @@ public class PlayerController : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && GameController.gameActive)
         {
             if (currentFuel > 0)
             {
-                BurnFuel(0.02f);
-            }
-            else
-            {
-                // game over
-                isGameOver = true;
-                print("game over");
-                SceneManager.LoadScene(0);
+                BurnFuel(0.4f);
             }
         }
     }
