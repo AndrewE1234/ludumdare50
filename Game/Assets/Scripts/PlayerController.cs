@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         directionY = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && currentFuel > 0)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, moveSpeed);
             spriteRenderer.sprite = upSprite;
@@ -80,14 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             if (currentFuel > 0)
             {
-                BurnFuel(0.02f);
-            }
-            else
-            {
-                // game over
-                isGameOver = true;
-                print("game over");
-                SceneManager.LoadScene(0);
+                BurnFuel(0.04f);
             }
         }
     }
