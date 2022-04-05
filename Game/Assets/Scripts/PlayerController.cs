@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             isGameOver = true;
+            GameController.gameActive = false;
             print("game over");
             SceneManager.LoadScene(0);
         }
@@ -76,11 +77,11 @@ public class PlayerController : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && GameController.gameActive)
         {
             if (currentFuel > 0)
             {
-                BurnFuel(0.04f);
+                BurnFuel(0.4f);
             }
         }
     }

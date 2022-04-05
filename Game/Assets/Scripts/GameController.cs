@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour
 
     private bool showMenu = true;
     private bool showHeader = false;
-    private bool gameActive = false;
     private float currentTime;
 
     [SerializeField] private float moveSpeed = -5f;
@@ -18,6 +17,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Text timerUI;
     [SerializeField] private GameObject header;
     [SerializeField] private GameObject panel;
+
+    public static bool gameActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +36,9 @@ public class GameController : MonoBehaviour
         {
             GameStart();
         }
-        if (Input.GetButton("Cancel") && !gameActive)
+        if (Input.GetButton("Cancel"))
         {
+            print("Quit!");
             Application.Quit();
         }
 
